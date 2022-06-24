@@ -1,4 +1,4 @@
-# Combination of template matching and deep learning in presciption recognition
+# Combination of template matching and deep learning in extracting presciption information
 
 ## Thông tin khoá luận
 
