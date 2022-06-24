@@ -1,0 +1,95 @@
+\chapter{Cài đặt thực nghiệm}
+\label{Chapter4}
+
+\section{Tập dữ liệu}
+
+Như đã giới thiệu ở trên, đối với bài toán OCR trên hình ảnh đơn thuốc thì những tập dữ liệu văn bản cảnh là chưa đủ để đánh giá khả năng của mô hình. Do vậy, chúng tôi đã thu thập và đề xuất một tập dữ liệu mới bổ sung, có tên là Prescription Dataset nhằm mục đích đánh giá cho các mô hình nhận dạng ảnh đơn thuốc. Trong đó, dữ liệu bao gồm 1500 hình ảnh với hơn 10000 loại thuốc khác nhau. Mỗi tên thuốc được bao quanh bởi một bounding box và được gán nhãn bằng tên thuốc đúng. Tập dữ liệu này được chúng tôi thu thập từ các nguồn như bệnh viện và các trang web chuyên về phân phối thuốc.
+
+Mặc dù ngôn ngữ chính của tập dữ liệu này là tiếng Việt, tuy nhiên tên thuốc thường là tên khoa học nên chúng ít chịu ảnh hưởng bởi dấu câu hoặc ngữ pháp tiếng Việt, tất nhiên chúng tôi cũng thống kê và sử dụng những tên thuốc thuần Việt như "Cao bạch hổ", "Tinh dầu",… Tập dữ liệu này chứa hình ảnh đơn thuốc được chụp lại bằng camera của điện thoại, với độ sáng hoặc góc nghiêng là không cố định.
+
+Những điều kiện trên tuy sẽ giống thực tế, có lợi cho sự tổng quát của mô hình \codeword{MEP}, nhưng cũng vô tình tạo ra những thách thức không hề nhỏ cho mô hình nhận diện, làm thế nào để có thể nhận diện được chính xác văn bản ở những điều kiện khó khăn về độ sáng, góc nghiêng. Do đó, tập dữ liệu này sẽ đóng vai trò là một thang đo thực tế cho hệ thống nhận dạng và trích xuất thông tin thuốc như của chúng tôi. Trong những phần tiếp theo, chúng tôi sẽ mô tả quá trình thu thập cũng như gán nhãn cho bộ dữ liệu.
+
+\subsection{Thu thập dữ liệu}
+Phần lớn hình ảnh trong tập dữ liệu của chúng tôi đã được tải xuống từ một group
+Facebook có tên là "\textbf{KHO ĐƠN THUỐC}", đây là một group nhỏ được lập ra với mục đích tập
+hợp đơn thuốc từ khắp mọi nơi. Bên cạnh đó, một số lượng không hề nhỏ đơn thuốc được
+chúng tôi đến những bệnh viện lớn và nhỏ trong khu vực để thu thập. Để đảm bảo không xảy ra hiện tượng trùng lặp, chúng tôi đã thực hiện việc kiểm tra một cách thủ công. Tập dữ
+liệu cuối cùng chứa 1008 hình ảnh từ Internet và 492 hình ảnh do các thành viên trong nhóm thu thập từ bệnh viện và chụp lại.
+\subsection{Gán nhãn dữ liệu}
+Ban đầu, chúng tôi lấy ra một vài hình ảnh để thực hiện quá trình gán nhãn mẫu để ước
+lượng ra một quy trình gán nhãn phù hợp với tập dữ liệu. Một bounding box được vẽ bao
+quanh những phần văn bản là tên thuốc. Tọa độ và tên thuốc (nhãn) của bounding box sẽ
+được lưu lại trong một tập tin văn bản bán cấu trúc (JSON). Sau khi hoàn thành giai đoạn
+làm thử trên những hình ảnh ban đầu, các kỹ thuật thống kê được áp dụng để đánh giá kết
+quả gán nhãn. Từ đó chúng tôi có được những nhận định sơ bộ về kết quả gán nhãn nhằm
+cập nhật qui trình gán nhãn giúp nâng cao chất lượng, sự đồng thuận trong kết quả gán
+nhãn.
+
+Sau khi tổng kết giai đoạn làm thử, bước tiếp theo là thực hiện gán nhãn trên tập dữ liệu
+1500 hình ảnh. Chúng tôi chia 1500 hình ảnh thành 4 nhóm, mỗi nhóm 375 hình ảnh. Mỗi
+hình ảnh được gán nhãn thủ công bởi mỗi thành viên trong nhóm nhằm đảm bảo độ chính
+xác của tập dữ liệu trong quá trình thực nghiệm.
+
+\subsection{Bộ dữ liệu từ điển tên thuốc}
+Ngoài bộ dữ liệu để thực nghiệm, chúng tôi cũng thu thập thêm nguồn dữ liệu dồi dào tên
+thuốc từ Drugbank Việt Nam và thế giới. Với tổng cộng hơn 40.000 nhãn tên thuốc riêng biệt
+cùng với hơn 100.000 tên hoạt chất, gấp hơn 100 lần so với bộ dữ liệu cũ trong nghiên cứu của các nhóm khóa luận trước đó, \codeword{MEP} hứa hẹn sẽ cho ra kết quả tốt hơn và ổn định hơn so với mô hình tiền
+nghiệm.
+
+\section{Cấu hình tham số}
+
+Trong phần này khóa luận sẽ giới thiệu các tham số và thiết bị sử dụng trong quá trình thực nghiệm. Cụ thể, các lần thực nghiệm đều được chúng tôi chạy trên thiết bị có cùng cấu hình gồm chip xử lý là 2 lõi CPU Intel Xenon @2.20GHz, và chip đồ họa là GPU Tesla K80 với CUDA Version 11.2. 
+
+Đối với phần phát hiện văn bản, chúng tôi sử dụng tham số cho CRAFT như sau: \verb|text_threshold = 0.75| và \verb|link_threshold = 0.4|. Đồng thời chúng tôi sử dụng bộ pretrain \verb|craft_mlt_25k| (được train trước với các tập dataset SynthText, IC13, IC17 với ngôn ngữ chủ yếu là tiếng Anh) cho mô hình. Để nhận diện văn bản sử dụng VietOCR, khóa luận chọn phương pháp cài đặt là \verb|Seq2Seq| đồng thời sử dụng bộ pretrained \verb|vgg_seq2seq| cho mô hình. 
+
+Tham số ngưỡng cho MergeOCR được cài đặt là threshold = 0.02, chỉ ra giới hạn khoảng cách tương đối giữa các bounding box để được coi là nằm trên một dòng. Đối với Medicine Classifier, chúng tôi cấu hình tham số \verb|padding_size = 320|, \verb|filter_size k = 2|, độ giãn nở dilation factor \verb|d = [1, 2, 4]|. Ngoài ra ngưỡng để Medicine Classifier đảm bảo rằng một nhãn là tên thuốc được cấu hình là 0.6. Cuối cùng, chúng tôi cấu hình ngưỡng để tìm kiếm tên thuốc trong bộ dữ liệu đơn thuốc và sửa lỗi chúng là 0.85.
+
+\section{Huấn luyện mô hình}
+
+Đối với \codeword{MEP}, chúng tôi lựa chọn huấn luyện một vài công đoạn, và một số công đoạn sẽ dùng lại bộ tham số có sẵn. Về OCR, cả phần phát hiện văn bản dùng CRAFT và nhận dạng văn bản đều dùng cấu hình có sẵn như đã trình bày ở trên. 
+
+Đối với Medicine Extractor, chúng tôi chỉ lựa chọn mẫu để tách tên thuốc ra khỏi dòng thuốc chứ không có nhu cầu huấn luyện. Tương tự với phần sửa lỗi cuối mô hình, chỉ đơn giản là so khớp, tìm kiếm mờ tên thuốc với cơ sở dữ liệu.
+Như vậy, trong phần này chúng tôi tập trung giới thiệu phần huấn luyện mô hình cho MergeOCR và Medicine Classifier.
+
+\subsection{Huấn luyện mô hình MergeOCR}
+
+\textbf{AHC} là một mô hình thống kê, vì vậy công đoạn huấn luyện mô hình khá đơn giản. Vì mỗi ảnh có thể có kích thước khác nhau, đồng thời kích thước văn bản bên trong cũng khác biệt. Vì thế, chúng tôi dùng chính dữ liệu của mỗi hình bao gồm các bounding box sau bước phát hiện văn bản làm dữ liệu huấn luyện và trả về kết quả. Bằng cách đó, mô hình có thể áp dụng một ngưỡng threshold duy nhất nhưng vẫn đảm bảo tính linh hoạt cho mọi hình ảnh đầu vào.
+
+Đầu tiên, chúng tôi xây dựng một ma trận khoảng cách giữa các khung văn bản với nhau thông qua khoảng cách giữa các trọng tâm (center of mass), sau đó bộ dữ liệu được tính toán sẵn này sẽ được đưa vào huấn luyện mô hình, trong đó khoảng cách giữa các cụm sẽ được tính bằng công thức Average-Linkage. Sau đó, Các nhóm sẽ được tạo ra tương ứng với một dòng văn bản. Mô hình sẽ thực hiện nối văn bản của các bounding box trên mỗi cột vào lại với nhau và sẵn sàng sử dụng. 
+
+\subsection{Huấn luyện mô hình Medicine Classifier}
+
+Dữ liệu dùng để huấn luyện cho mô hình Medicine Classifier là dữ liệu được chúng tôi thu thập từ Drugbank để lấy tên thuốc và hoạt chất, cũng như từ bộ dữ liệu hỏi đáp Yahoo để lấy nhãn còn lại. Với tổng số hơn 230000 mẫu huấn luyện, chúng tôi tiếp tục thực hiện chuẩn hoá dữ liệu, sau đó chia thành 3 tập $D_{train}$, $D_{validation}$ và $D_{test}$. Sau đó, mỗi mẫu dữ liệu này sẽ được đưa vào Tokenizer theo phương pháp character embedding để tạo ra input cho mô hình. Cuối cùng, kích thước tập $D_{train}$ là (168019, 320) và tập $D_{validation}$ phục vụ cho việc huấn luyện mô hình là (42005, 320) và tập $D_{test}$ để kiểm tra mô hình là (23337, 320).
+
+Chúng tôi huấn luyện mô hình với \verb|batch_size = 50|, mỗi epoch sẽ có 3361 batch nhằm mục đích tăng tốc độ hội tụ mô hình mà vẫn đảm bảo thời gian huấn luyện thấp. Với lượng dữ liệu huấn luyện dồi dào cùng với sự kết hợp của kiến trúc TCN, mô hình Medicine Classifier nhanh chóng hội tụ và chúng tôi lựa chọn bộ tham số tại checkpoint có hàm loss thấp nhất để đưa vào sử dụng cho bài toán phân loại tên thuốc.
+
+\section{Phương pháp đánh giá}
+
+Chúng tôi thực hiện đánh giá mô hình MEP thông qua kết quả khi chạy thực nghiệm trên bộ dữ liệu đơn thuốc kể trên, trong đó ghi lại 3 thông tin: (1) Precision, (2) Recall, (3) H-mean.
+
+\begin{itemize}
+
+\item[(1)] Precision (\verb|P|) là độ đo cho độ tin cậy của mô hình khi thực hiện trích xuất tên thuốc ra khỏi đơn thuốc. Cụ thể, nó chính là tỉ lệ dự đoán đúng tên thuốc trên toàn bộ tên thuốc mà mô hình trả về. Công thức tính precision cho mỗi đơn thuốc được thể hiện ở trong công thức ~\ref{eq:precision}. Để tính precision cho toàn bộ mô hình, ta sẽ lấy trung bình độ đo này cho từng đơn thuốc.
+
+\begin{dmath}
+    \label{eq:precision}
+    P_{MEP} = \frac{|\{accurate\_drugs\} \cap \{ retrieved\_drugs \}|}{|\{ retrieved\_drugs \}|}
+\end{dmath}
+
+\item[(2)] Recall (\verb|R|) được dùng để kiểm định tỉ lệ bỏ sót tên thuốc trong mỗi đơn thuốc mà mô hình cần dự đoán. Công thức ~\ref{eq:recall} chỉ ra công thức tính recall cho mỗi đơn thuốc. Ta dùng trung bình của giá trị recall này trên các đơn thuốc để tính được độ đo trên cho toàn bộ mô hình trên tập dữ liệu.
+
+\begin{dmath}
+    \label{eq:recall}
+    R_{MEP} = \frac{|\{accurate\_drugs\} \cap \{ retrieved\_drugs \}|}{|\{ accurate\_drugs \}|}
+\end{dmath}
+
+\item[(3)] H-mean (\verb|H|), hay còn gọi là \verb|F1-score|, được tính bằng cách lấy trung bình điều hòa của hai giá trị precision và recall. Độ đo này được chúng tôi sử dụng để đánh giá tổng thể chất lượng của mô hình và được tính theo công thức ~\ref{eq:hmean}.
+
+\begin{dmath}
+    \label{eq:hmean}
+    H_{MEP} = 2 \times \frac{P_{MEP} \times R_{MEP}}{P_{MEP} + R_{MEP}}
+\end{dmath}
+
+\end{itemize}
+
+Ngoài 3 độ đo này, khóa luận cũng tiến hành đánh giá mô hình thông qua tiêu chí thời gian. Đối với mỗi bước trong phương pháp đề xuất, chúng tôi sẽ tiến hành đo và đối chiếu với hiệu năng của mô hình đề xuất tại \cite{nguyen2021developing} tương ứng.

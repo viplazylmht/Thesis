@@ -1,0 +1,105 @@
+\chapter{Giới thiệu}
+\label{Chapter1}
+
+\section{Đặt vấn đề \& Động lực}
+
+Đã hơn một năm kể từ khi bùng phát đại dịch Covid-19 và lan rộng ra toàn cầu, trở thành
+một cuộc khủng hoảng trong lĩnh vực y tế. Đại dịch đã khiến hơn hơn 400 triệu ca nhiễm, 6
+triệu ca tử vong và những con số vẫn đang tiếp tục tăng. Tổ chức Y tế Thế giới (WHO) gọi
+Covid-19 là chu kỳ "hoảng loạn - lãng quên". Sự bành trướng này yêu cầu chúng ta phải
+thích nghi và sống chung với đại dịch. Tuy nhiên, tình hình dịch bệnh phức tạp sinh ra
+những suy nghĩ tiêu cực cho con người như cảm giác sợ hãi, lạc lối. Điều đó đã khiến cho
+nhiều người đưa ra những quyết định thiếu sáng suốt khi sử dụng các loại thuốc điều trị
+bệnh,từ đó gây ra những hậu quả đáng tiếc, nhẹ thì tiền mất tật mang, nặng thì ảnh hưởng
+đến tính mạng. Để tránh những trường hợp không may trong quá trình sử dụng thuốc, đòi
+hỏi cần phải có một hệ thống hỗ trợ người dùng sử dụng đơn thuốc cũng như quản lý thông
+tin thuốc một cách chính xác và an toàn hơn.
+
+Có thể thấy, đơn thuốc là thứ vô cùng quan trọng đối với những bệnh nhân. Nó chứa đựng
+nhiều thông tin có giá trị như thông tin bệnh nhân, tên bác sĩ thăm khám, tình trạng bệnh
+nhân và thông tin về thuốc đi kèm với liều lượng. Dựa vào các tên thuốc được kê đơn mà
+nhà thuốc mới có thể bán đúng thuốc trị bệnh. Tuy nhiên, việc ghi nhớ thông tin trong đơn thuốc lại không phải là điều đơn giản. Cụ thể đối với tên thuốc, nó thường là các từ khóa
+chuyên ngành, khó phát âm và không liên hệ nhiều tới cuộc sống.
+
+Với sự bùng nổ của cuộc cách mạng công nghệ 4.0, dữ liệu mở rộng rất nhanh dẫn đến nhu
+cầu có nhiều công cụ để quản lý thông tin hiệu quả. Việc ghi nhớ và lưu trữ thông tin trong
+đơn thuốc một cách thủ công hiện nay đang tạo ra một rào cản lớn cho sự phát triển của
+ngành y tế. Việc thất lạc hồ hơ là điều không hiếm thấy, dẫn đến khó khăn trong việc truy vết
+và theo dõi hồ sơ bệnh án của bệnh nhân, ảnh hưởng trực tiếp tới sức khỏe của người
+bệnh cũng như bệnh viện hay nhà thuốc.
+
+Với những lý do được trình bày ở trên, nhóm chúng tôi quyết định thực hiện đề tài này, giúp
+đưa ra một ứng dụng hỗ trợ con người quản lý đơn thuốc hiệu quả hơn, gián tiếp hỗ trợ
+bệnh nhân giải quyết những sai sót không đáng có. Một lợi ích mà đề tài nhóm chúng tôi
+đem lại nữa đó là giúp con người tiếp cận dễ dàng hơn với công nghệ hiện đại, góp phần
+giúp Việt Nam bắt kịp với sự phát triển trên thế giới.
+
+\section{Phạm vi đề tài}
+
+Trong phạm vi đề tài khóa luận này, chúng tôi tập trung nghiên cứu và tìm hiểu về một số hệ
+thống OCR \cite{impedovo1991optical} hiện có mà trong đó gồm 3 giai đoạn chính: Text Detection, Text Recognition và PostOCR. Từ những kiến thức thu thập được, chúng tôi tạo ra một mô hình hoàn chỉnh bao gồm tận dụng những mô hình có sẵn đồng thời thiết kế và xây dựng những phần tối ưu để cho ra một mô hình có khả năng nhận dạng đơn thuốc tên là \codeword{MEP} (Medicines Extraction System on
+Prescriptions). Và mục tiêu mà chúng tôi đề ra trong đề tài khóa luận này là:
+\begin{itemize}
+    \item \textbf{Tác vụ Text Detection}: Tìm hiểu một số mô hình Text Detection hiện có, thử nghiệm
+trên tập dữ liệu đề ra và chọn ra mô hình phù hợp nhất để giải quyết cho bài toán
+được đề ra.
+\item \textbf{Tác vụ Text Recognition}: Tìm hiểu một số mô hình Text Recognition được sử dụng
+phổ biến hiện nay. Thách thức đặt ra chính là mô hình đó phải hoạt động tốt đối với
+ngôn ngữ là tiếng Việt.
+\item \textbf{Tác vụ Post-OCR}: Đề xuất một số phương pháp cũng như mô hình phù hợp để giải
+quyết vấn đề xử lý văn bản sau khi OCR để trả về những kết quả phù hợp.
+\item Xây dựng một ứng dụng hỗ trợ người dùng trong quá trình quản lý thông tin thuốc
+trong đơn thuốc như liều lượng, giá thành, thành phần.
+\item Cải thiện hiệu suất của mô hình xử lý đơn thuốc hiện tại tốt hơn những mô hình
+trước đây.
+\item Xây dựng một tập dữ liệu đơn thuốc Việt Nam, phục vụ cho quá trình huấn luyện và
+kiểm chứng mô hình, góp phần cải tiến mô hình sau này.
+\item Nâng cao khả năng đọc hiểu, nghiên cứu tài liệu và kỹ năng làm việc nhóm.
+\end{itemize}
+\section{Đóng góp chính}
+
+Các đóng góp chính của khóa luận của chúng tôi bao gồm hai loại: Đóng góp về mặt lý
+thuyết và đóng góp về mặt thực nghiệm.
+
+\subsection{Đóng góp lý thuyết}
+
+\begin{itemize}
+    \item Tìm tòi và nghiên cứu một số bài báo nổi tiếng trên thế giới liên quan đến lĩnh vực nhận diện
+ký tự quang học, một số thách thức gặp phải và hướng đi của lĩnh vực này trong tương lai.
+    \item Khảo sát một số phương pháp cũng như mô hình hoạt động tốt cho các bài toán text
+detection và text recognition trên đơn thuốc tiếng Việt. Đề xuất một số mô hình và phương
+pháp hậu xử lý văn bản sau khi OCR với mục tiêu hướng đến là giải quyết bài toán đặt ra
+của khóa luận.
+    \item Mô hình được đề xuất đã chứng minh được sự vượt trội trong quá trình kiểm thử khi đạt
+được hiệu suất rất tốt trên bộ dữ liệu đơn thuốc, bên cạnh đó độ chính xác và thời gian cũng
+được cải thiện hơn rất nhiều so với mô hình đã có trước đó (sử dụng Tesseract OCR trên
+đơn thuốc và sử dụng khoảng cách khoảng cách Levenshtein để tìm kiếm, so khớp văn bản
+trên bộ dữ liệu tên thuốc \cite{nguyen2021developing}).
+\end{itemize}
+
+\subsection{Đóng góp thực nghiệm}
+
+\begin{itemize}
+    \item Thu thập từ nhiều nguồn khác nhau để xây dựng một bộ dữ liệu đơn thuốc Việt Nam có tên là Prescription Datasets, phục
+vụ cho quá trình huấn luyện và kiểm chứng mô hình, góp phần cải tiến mô hình sau này.
+        \item Cài đặt được một mô hình OCR trên đơn thuốc hoàn chỉnh có tên gọi là \codeword{MEP} (Medicines
+Extraction System on Prescriptions). Trong đó, hai mô hình text detection và text reconition
+đã được chúng tôi cài đặt lại và sử dụng bộ tham số đã được pretrain sẵn từ những mô hình
+đạt được hiệu suất tốt đã có trước đó. Ngoài ra, chúng tôi cũng đã tìm hiểu và cài đặt một phương pháp tìm kiếm trong tác vụ Post-OCR. Và cuối cùng, Các phương pháp và mô hình NLP phục vụ quá trình trích xuất thông tin thuốc được chúng tôi tổng hợp kiến thức từ đó tạo ra. Quá trình huấn luyện mô hình đã
+cho ra một bộ tham số phù hợp giúp mô hình đạt được độ chính xác tốt nhất. Kiểm thử và
+đánh giá mô hình với bộ dữ liệu mới.
+    \item Xây dựng được một ứng dụng quét thông tin tên thuốc trên đơn thuốc có tên là AppDrug.
+Chúng tôi dự định sẽ đưa ứng dụng này lên google play trong thời gian tới.
+\end{itemize}
+
+\section{Bố cục}
+
+Trong luận văn này, chúng tôi tổ chức nội dung thành 6 chương. Đầu tiên, chương \ref{Chapter1} sẽ giới
+thiệu cũng như tóm tắt bài toán và các vấn đề được đặt ra, bên cạnh đó chúng tôi cũng trình
+bày về phạm vi, mục tiêu và một số đóng góp. Chương \ref{Chapter2} sẽ giới thiệu về tổng quan lý thuyết
+cần nắm và một số nghiên cứu mà chúng tôi đã tìm hiểu được trong quá trình hoàn thiện đề
+tài. Chương \ref{Chapter3} đề xuất mô hình và các phương pháp chúng tôi đã sử dụng để giải quyết vấn
+đề được đặt ra ở chương \ref{Chapter1}. Trong chương \ref{Chapter4}, chúng tôi trình bày về quá trình thực nghiệm
+và bộ dữ liệu được chúng tôi sử dụng. Kết quả của quá trình thực nghiệm sẽ được chúng tôi
+sử dụng để phân tích mô hình đề xuất ở chương \ref{Chapter5}. Và cuối cùng, trong chương \ref{Chapter6}, chúng tôi sẽ đưa ra kết luận
+và hướng phát triển có thể có trong tương lai.

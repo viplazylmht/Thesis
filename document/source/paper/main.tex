@@ -1,0 +1,115 @@
+% This is samplepaper.tex, a sample chapter demonstrating the
+% LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.20 of 2017/10/04
+%
+\documentclass[runningheads]{llncs}
+%
+\usepackage{biblatex} %Imports biblatex package
+% \usepackage[style=ieee,backend=biber,maxbibnames=99,block=space, sorting=none]{{biblatex}}
+\addbibresource{ref.bib} %Import the bibliography file
+
+\usepackage{pgf}
+\usepackage{graphicx}
+
+\usepackage{layouts}
+% Used for displaying a sample figure. If possible, figure files should
+% be included in EPS format.
+%
+% If you use the hyperref package, please uncomment the following line
+% to display URLs in blue roman font according to Springer's eBook style:
+% \renewcommand\UrlFont{\color{blue}\rmfamily}
+
+\begin{document}
+%
+\title{MEP: A Comprehensive Medicines Extraction System on Prescriptions}
+%
+%\titlerunning{Abbreviated paper title}
+% If the paper title is too long for the running head, you can set
+% an abbreviated paper title here
+%
+\author{Ngoc-Thao Nguyen\inst{1,2}\orcidID{0000-0003-0252-6519} \and
+    Duy Ha\inst{1,2}\orcidID{0000-0003-2077-0435} \and
+	Khanh Tran\inst{1,2}\orcidID{0000-0002-0409-1304} \and
+	Duc Nguyen\inst{1,2}\orcidID{0000-0002-2088-6000} \and
+	Hieu Vo\inst{1,2}\orcidID{0000-0002-1260-021X} \and 
+	Thanh Le\inst{1, 2}\orcidID{0000-0002-2180-4222}}
+%
+\authorrunning{Ngoc-Thao Nguyen et al.}
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+\institute{Faculty of Information Technology, University of Science, Ho Chi Minh city, Vietnam \and
+Vietnam National University, Ho Chi Minh city, Vietnam \\
+\email{\{vohieu20122000, hvduy37, lankhanh1482, ducsinhvientinhnguyen\}@gmail.com}\\
+% \email{18120018@student.hcmus.edu.vn} \\
+\email{\{lnthanh, nnthao\}@fit.hcmus.edu.vn}}
+\maketitle
+%
+  % typeset the header of the contribution
+\begin{abstract}
+Identifying drug names from prescription images has played an important role in the processing and storing of patient medical information. Based on our previous approach, we propose a new version named Medicines Extraction on Prescription (MEP) to recognize and extract proprietary medicines from prescription images obtained by smartphones. The proposed work employs some heuristic rules and a Temporal Convolutional Network model to extract pharmaceutical terms and classify them into drug names and active ingredients in OCR result texts. Experimentally, our model demonstrates the ability to recognize the names of drugs in the input image in a relatively short time, achieving a precision score of up to 0.94 on our datasets.
+
+
+%However, the system has a limitation that the rate of drug omits still exists. This is the future challenge for the development team.
+% In addition, a dataset of prescription images collected by our team is introduced. It is considered as a measure of the accuracy and uptime of the text recognition and detection system in prescriptions.
+
+\keywords{Prescription Recognition \and Optical Character Recognition \and Medicines Classification \and Fuzzy Matching}
+\end{abstract}
+%
+%
+%
+\section{Introduction}
+\input{introduction/intro}
+\section{Related work}
+\input{related_work/rel}
+\section{Background}
+\input{background/background}
+\section{A proposed system}
+\input{method/met}
+\section{Experiment}
+\input{experiment/exp}
+\section{Conclusion}
+We have developed a prescription recognition system called MEP which assists users in accurately understanding the medicines and avoiding potential risks in the treatment process. The system incorporates various state-of-the-art models in the text detection and recognition phase, as well as the Medicine Classification model and Post-OCR approaches. Experimentation exhibits that the model works with high accuracy and requires little time on the given data set of prescriptions. %However, besides that, there are still many things that this model needs to improve, such as accuracy, uptime and format-diverse prescription.
+
+In the future, the model will be enhanced by including the prescription dictionary into the detection and identification process, which reduces the model's operation time and increases its accuracy. Furthermore, we would attempt to detect prescriptions that are fully independent on the pattern, and include tasks such as advising patients to utilize the drug appropriately and reminding them of the time to take medicine. 
+
+%Our technology will provide several benefits in the medical industry, allowing users to swiftly and conveniently acquire the information they require.
+
+\subsubsection{Acknowledgements}
+This research is funded by the University of Science, VNU-HCM, Vietnam under grant number CNTT 2021-12 and Advanced Program in Computer Science.
+
+\printbibliography %Prints bibliography
+\end{document}
+
+
+%
+% ---- Bibliography ----
+%
+% BibTeX users should specify bibliography style 'splncs04'.
+% References will then be sorted and formatted in the correct style.
+%
+% \bibliographystyle{splncs04}
+% \bibliography{mybibliography}
+%
+% \begin{thebibliography}{8}
+% \bibitem{ref_article1}
+% Author, F.: Article title. Journal \textbf{2}(5), 99--110 (2016)
+
+% \bibitem{ref_lncs1}
+% Author, F., Author, S.: Title of a proceedings paper. In: Editor,
+% F., Editor, S. (eds.) CONFERENCE 2016, LNCS, vol. 9999, pp. 1--13.
+% Springer, Heidelberg (2016). \doi{10.10007/1234567890}
+
+% \bibitem{ref_book1}
+% Author, F., Author, S., Author, T.: Book title. 2nd edn. Publisher,
+% Location (1999)
+
+% \bibitem{ref_proc1}
+% Author, A.-B.: Contribution title. In: 9th International Proceedings
+% on Proceedings, pp. 1--2. Publisher, Location (2010)
+
+% \bibitem{ref_url1}
+% LNCS Homepage, \url{http://www.springer.com/lncs}. Last accessed 4
+% Oct 2017
+% \end{thebibliography}
+

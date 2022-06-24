@@ -1,0 +1,88 @@
+\subsection{Datasets}
+The datasets for model evaluation includes 1500 images with more than 10000 different drugs. Each drug name is surrounded by a bounding box labeled with the correct drug name. Original images in our datasets have been downloaded from a Facebook group called "KHO DON THUOC"\footnote[1]{https://www.facebook.com/groups/392636900896314}, a small group created to gather prescriptions from all over the world and collected manually from large and small hospitals in the area. The manual check is conducted to ensure there is no duplication. 
+
+Although the primary language of this datasets is Vietnamese, drug names are often scientific names, so they are less affected by Vietnamese punctuation or grammar. This datasets contains prescription images captured with the phone's camera, brightness or tilt angle subject to change. Although these conditions are similar to reality, they unintentionally create a big challenge for recognition models: how to accurately identify text under challenging conditions of brightness and tilt angle. Therefore, this datasets measure the accuracy and uptime of the prescription text recognition and detection system.
+
+% The dataset for model evaluation includes 1500 images with more than 10000 different drugs. Each drug name is surrounded by a bounding box labeled with the correct drug name. This data set is collected from hospitals and websites that specialize in drugs.
+
+% Although the primary language of this dataset is Vietnamese, drug names are often scientific names, so they are less affected by Vietnamese punctuation or grammar. This dataset contains prescription images captured with the phone's camera, brightness or tilt angle subject to change. Although these conditions are similar to reality, they unintentionally create a big challenge for recognition models: how to accurately identify text under challenging conditions of brightness and tilt angle. Therefore, this dataset measure the accuracy and uptime of the prescription text recognition and detection system. In the following sections, we describe collecting and labeling this dataset.
+
+% Images in our dataset have been downloaded from a Facebook group called "KHO DON THUOC", a small group created to gather prescriptions from all over the world and collected manually from large and small hospitals in the area. We have done the checks to ensure there is no duplication.
+
+% Most of the images in our dataset have been downloaded from a Facebook group called "KHO DON THUOC", which is a small group created to gather prescriptions from all over the world. In addition, many prescriptions were collected by us from large and small hospitals in the area. We have done the checks manually to ensure there is no duplication. The final dataset contains 1008 images from the Internet and 492 images collected and taken by team members from the hospital.
+
+%A few images taken perform the sample labeling process to estimate a suitable process for the dataset. The bounding box is drawn around the text that is the drug name. The bounding box's coordinates and drug names were saved in a semi-structured text file (JSON). After completing the testing phase on the initial images, statistical techniques are applied to evaluate the labeling results then give out judgments about the labeling results to update the labeling process to improve the quality and consensus in the labeling results.
+
+\subsection{Parameter settings}
+
+This section features parameters and hardware for the proposed system in the experiment. For text detection, we modified CRAFT parameters: \(text\_threshold = 0.7\) and \(link\_threshold = 0.4\). We config sequence model VietOCR in recognition step to \(vgg\_seq2seq\). The threshold of MergeOCR is at 0.016, which determines the sensitivity of the clustering process. In medicine classifier, we set padding size to 300, filter size \(k = 2\), dilation factor \(d = [1, 2, 4]\). The medicine classifier threshold to confirm whether the text could be medicine is set to 0.6. Finally, the threshold to confirm and correct medicines is 0.85.
+% We experiment with the whole proposed system in the same machine hardware, which has two core CPU Intel Xenon @2.20GHz, GPU Tesla K80 controlled by CUDA Version 11.2. 
+
+\subsection{Evaluation Metrics}
+
+Precision and recall are the major measurements we employ in the experiment. To assess the model's accuracy, an extra H-mean metric is also utilized. 
+\begin{equation} \label{eq_precision}
+   Precision = \frac{|\{accurate\;drugs\}\:\cap\:\{retrieved\;drugs\}|}{|\{retrieved\;drugs\}|}
+\end{equation}
+\begin{equation} \label{eq_recall}
+   Recall = \frac{|\{accurate\;drugs\}\:\cap\:\{retrieved\;drugs\}|}{|\{accurate\;drugs\}|}
+\end{equation}
+\begin{equation} \label{eq_hmean}
+   H{\text -}mean = 2\;\frac{Precision\:\cdot\:Recall}{Precision\:+\:Recall}
+\end{equation}
+Equation (\ref{eq_precision}), (\ref{eq_recall}), and (\ref{eq_hmean}) show the definition of Precision, Recall and H-mean. These metrics are used in the overall of the proposed prescription recognition system.
+% Precision denotes the proportion of properly predicted drug names in the total
+% output given by the system, whereas Recall shows the right prediction rate for
+% all drug names in the data set. From the above two metrics, H-mean is also
+% computed to evaluate the model’s quality in general.
+\subsection{Result}
+% Table 1 shows the experimental results after applying the introduced method. After the post-processing stage, the model achieves Precision and Recall of 0.94 and 0.73 respectively that increase by 0.4 and 0.56 points sequentially when compared to the model introduced by Nguyen et al. \cite{nguyen2021developing}.
+Table ~\ref{tab1} shows the experimental results of new method and our old system \cite{nguyen2021developing}. The proposed model identifies effectively drug names in the data set, which outperforms the previous version with Precision and Recall up to 0.94 and 0.73, which increase by 0.4 and 0.56 respectively. However, the Recall score is just 0.73. In general, the cause is that the input data contains several errors. Simultaneously, the value of these metrics is heavily reliant on the medicines extraction step. This could be improved in the future if appropriate heuristic rules are implemented to make drug name extraction more efficient.
+% \usepackage{siunitx}
+
+\begin{table}
+\centering
+\caption{Evaluation on previous and upgraded system}\label{tab1}
+% \begin{tabular}{|S[table-format=15.0]|S[table-format=10.2]|S[table-format=7.2]|S[table-format=7.2]|}
+\begin{tabular}{|c|ccc|}
+\hline
+Model           & @Precision & @Recall & @H-mean  \\ 
+\hline
+Method in \cite{nguyen2021developing}      & 0.54       & 0.17    & 0.26     \\ 
+\hline
+\textbf{MEP} & \textbf{0.94}       & \textbf{0.73}    & \textbf{0.82}     \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\centering
+\caption{The importance of medicine extractor in Prescription Recognition system}\label{tab2}
+% \begin{tabular}{|S[table-format=15.0]|S[table-format=10.2]|S[table-format=7.2]|S[table-format=7.2]|}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Model           & OCRed text & MedicineExtractor & Spell correction & Output \\ 
+\hline
+Method in \cite{nguyen2021developing}      & Allpovic & - & [Alpovic]@0.9 & Alpovic     \\ 
+\textbf{MEP} & Allpovic & \textbf{Allpovic} & [Alpovic]@0.9 & Alpovic     \\
+\hline
+Method in \cite{nguyen2021developing}      & Eperison 50mg (Macnir) & - & [Macnir]@0.6 & -      \\ 
+\textbf{MEP} & Eperison 50mg (Macnir) & \textbf{Macnir} & [Macnir]@1.0 & Macnir     \\
+\hline
+\textbf{MEP} & Diovan 160mg (Valsartan) & \textbf{Diovan 160mg} & [Diovan 160]@0.94 & Diovan 160     \\
+\hline
+\end{tabular}
+\end{table}
+In addition, table~\ref{tab2} demonstrates how MEP achieves more stable results than the method in \cite{nguyen2021developing}. With the first medicine's name "Alpovic", both MEP and system in \cite{nguyen2021developing} work efficiently with high result confidence even though the inputs are misspelled. But when the output text of the OCR task is "Eperison 50mg (Macnir)", the old method can not separate drug and ingredient completely before applying it to the spell correction stage. As a result, the confidence metric is only 0.6, less than the configured threshold, so the model marks this text as non-drug. MEP overcome this restriction by adding a new layer to extract exactly drug names from the OCR stage, thanks to Medicine Classifier. No matter the complexity of OCRed text lines, the proposed method always knows which one is the drug name. In table~\ref{tab2}, MEP smoothly extracts "Macnir" and "Diovan 160mg" and throws them to the spell correction stage, finally achieving clear outcomes with excellent confidence. 
+
+\begin{figure}
+\centering
+% \includegraphics[width=0.7\textwidth]{experiment/barchart.png}
+% \includegraphics[width=0.7\textwidth]{experiment/charchart1.jpg}
+\scalebox{0.55}{\input{experiment/barchart_95_cite.pgf}}
+\caption{Average processing time in stages}\label{fig_barchart}
+\end{figure}
+
+In terms of processing time, our model outperforms with the fastest and slowest processing times across the system at 1.38 seconds and 29.65 seconds, respectively, compared to 3.81 seconds and 51.24 seconds of the previous model. Fig.~\ref{fig_barchart} compares the average processing time of each step on the prescription datasets between the two versions. When Tesseract is replaced by VietOCR that speeds up time from 15.84 second to 1.64 seconds in average. This implies the application of the character recognition model depends on the characteristics of the problem being solved. MEP shortens the required time to match a string to a dictionary. Despite having a lexicon that is more than 100 times larger than the prior one, matching time rose by just 1.69 seconds on average when compared to the previous model.
+
+Overall, the upgraded system has shown a significant improvement in all mentioned metrics. Despite some additional intermediate steps before dictionary matching, our total drug name recognition and the average extraction time is 6.67 seconds per prescription, compared to 17.81 seconds average processing times of the old model. That demonstrates the efficiency in terms of time and accuracy that our model achieves on the problem posed.
