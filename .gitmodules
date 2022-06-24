@@ -1,0 +1,3 @@
+[submodule "AppDrug"]
+	path = AppDrug
+	url = https://github.com/ducsinhvientinhnguyen/AppDrug.git
