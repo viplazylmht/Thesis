@@ -18,13 +18,12 @@ văn bản được đưa ra cải thiện khả năng nhận biết xung quanh 
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{mep_img/ocr-1.jpg}
-\caption{OCR mang lại nhiều lợi ích cho cuộc sống. }\label{fig_2.1}
+\caption{OCR mang lại nhiều lợi ích cho cuộc sống \cite{ocr_intro}. }\label{fig_2.1}
 \end{figure}
-
-\footnotetext{Nguồn tham khảo hình ~\ref{fig_2.1}: https://fpt.ai/vi/tuong-lai-cua-cong-nghe-ocr-song-hanh-cung-ai}
 
 Tuy nhiên bên cạnh những lợi ích to lớn mà OCR mang lại, vẫn còn nhiều hạn chế mà các
 mô hình OCR gặp phải:
+
 \begin{itemize}
     \item Độ chính xác của những hệ thống này chưa cao chỉ đạt khoảng 70-80$\%$.
     \item Thời gian hoạt động với hiệu suất của mô hình chưa thật sự tương xứng. Những mô
@@ -37,9 +36,9 @@ phát triển. Đi kèm với nó là nhu cầu cần tìm hiểu ngôn ngữ m�
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{mep_img/typeofproblem.jpg}
-\caption{Mô hình của một số hệ thống OCR phổ biến hiện nay. }\label{fig_2.2}
+\caption{Mô hình của một số hệ thống OCR phổ biến hiện nay \cite{ocr_struct}. }\label{fig_2.2}
 \end{figure}
-\footnotetext{ Nguồn tham khảo hình ~\ref{fig_2.2}: http://tutorials.aiclub.cs.uit.edu.vn/index.php/2021/07/25/ai-tempo-run-gioi-thieu-bai-toan-scene-text/}
+
 Bên cạnh đó còn có rất nhiều lý do khác ảnh hưởng đến kết quả của bài toán OCR như:
 font chữ, mật độ văn bản, ảnh nền, cấu trúc, vị trí, độ rõ nét của ảnh,...
 
@@ -107,13 +106,12 @@ phân đoạn văn bản trên ảnh như CRAFT\cite{baek2019character}.
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{mep_img/tutorial_segmentation.png}
-\caption{Bài toán phát hiện văn bản trở thành bài toán phân đoạn vật thể trên từng pixel.}\label{fig_2.5}
+\caption{Bài toán phát hiện văn bản trở thành bài toán phân đoạn vật thể trên từng pixel \cite{ocr_struct}.}\label{fig_2.5}
 \end{figure}
-\footnotetext{ Nguồn tham khảo ~\ref{fig_2.5}: http://tutorials.aiclub.cs.uit.edu.vn/index.php/2021/07/25/ai-tempo-run-gioi-thieu-bai-toan-scene-text/}
 
 \end{itemize}
 
-Baek và các cộng sự đã đề xuất một phương pháp phát hiện văn bản có tên là CRAFT -
+Baek và các cộng sự \cite{baek2019character} đã đề xuất một phương pháp phát hiện văn bản có tên là CRAFT -
 Character-Region Awareness For Text detection. Đây là một mô hình khá nổi tiếng và hoạt
 động khá tốt trên những tập dữ liệu đa ngôn ngữ. CRAFT thực hiện công việc xác định vùng
 của các ký tự đồng thời xác định vùng nối của các ký tự gần nhau. Mặc dù có hiệu suất tốt
@@ -137,9 +135,9 @@ cùng thuộc một từ hay không. Quá trình tính toán region score và af
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{mep_img/Capture3.JPG}
-\caption{Quá trình tính toán của region score và affinity score. }\label{fig_2.6}
+\caption{Quá trình tính toán của region score và affinity score \cite{baek2019character}. }\label{fig_2.6}
 \end{figure}
-\footnotetext{Nguồn tham khảo hình ~\ref{fig_2.6}: Character Region Awareness for Text Detection \cite{baek2019character}}
+
 \item Ngoài Synthetic Image, ta còn có một bộ dữ liệu ảnh thực được đánh nhãn ở cấp độ
 từ được gọi là tập dữ liệu thực tế. CRAFT\cite{baek2019character} sẽ được huấn luyện bằng phương pháp
 Weakly-Supervised learning \cite{zhou2018brief}. Trong mỗi lần lặp trong quá trình học (hay còn gọi là
@@ -162,9 +160,9 @@ lớp Convolution đi xuống và De-Convolution đi lên. Kiến trúc của CR
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{mep_img/Capture4.JPG}
-\caption{Kiến trúc giống mạng U-Nets của mô hình CRAFT. }\label{fig_2.7}
+\caption{Kiến trúc giống mạng U-Nets của mô hình CRAFT \cite{baek2019character}. }\label{fig_2.7}
 \end{figure}
-\footnotetext{Nguồn tham khảo hình ~\ref{fig_2.7}: Character Region Awareness for Text Detection \cite{baek2019character}}
+
 \end{itemize}
 Ngoài CRAFT ra, CTPN \cite{tian2016detecting} cũng là một mô hình khá nổi tiếng được sử dụng nhiều trong tác vụ phát hiện văn bản. Mô hình này được phân loại vào nhóm phương pháp phát hiện vật thể (vật thể ở đây chính là văn bản) trên ảnh. Giống như CRAFT, mô hình này cũng sử dụng VGG16 làm một mạng con BackBone trong tác vụ trích xuất đặc trưng trên ảnh. Ngoài ra, Sliding-window - một kỹ thuật trong phát hiện vật thể trên ảnh bằng những bộ lọc tích chập, cũng được sử dụng để tìm vùng nào trên ảnh có thể chứa văn bản. Sau đó, các đặc trưng sẽ được đưa qua một mô hình RNN đơn giản và một lớp fully-connected cuối cùng. Kết quả của mô hình sẽ trả về xác suất có văn bản trong một vùng, tọa độ của bounding box chứa vùng đó. 
 \subsection{Text Recognition}
@@ -179,9 +177,9 @@ trong hình~\ref{fig_2.8}.
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{mep_img/Capture5.JPG}
-\caption{Mô hình Deep Text Recognition.}\label{fig_2.8}
+\caption{Mô hình Deep Text Recognition \cite{baek2019wrong}. }\label{fig_2.8}
 \end{figure}
-\footnotetext{ Nguồn tham khảo hình ~\ref{fig_2.8}: What Is Wrong With Scene Text Recognition Model Comparisons? Dataset and Model Analysis \cite{baek2019wrong}}
+
 Văn bản có trong hình ảnh (nằm trong 1 bounding box) có thể có nhiều hướng khác nhau
 ảnh hưởng đến quá trình dự đoán của mô hình. Nên việc đầu tiên cần làm chính là khử độ
 nghiêng, đưa văn bản về 1 hướng duy nhất (các tác giả gọi bước này là chuẩn hóa hình ảnh
@@ -277,28 +275,28 @@ Với tính giãn nở đó, cách hoạt động của TCN mang lại tính đ�
 
 Trong bài toán nhận dạng tên thuốc, ta cũng cần phân biệt tên thuốc, là một hay một số từ có thể mang đặc trưng riêng trong lĩnh vực y học, khác với các văn bản thông thường khác. Như vậy chúng tôi hoàn toàn có thể ứng dụng TCN trong bài toán nhận dạng tên thuốc, và sẽ tiếp tục được đề cập đến ở phần phương pháp đề xuất.
 
-\section{Dataset}
+% \section{Dataset}
 
-Một trong những yếu tố có thể được coi là quan trọng nhất giúp xây dựng một hệ thống
-OCR đạt hiệu suất tốt chính là tập dữ liệu. Trong phần này, chúng tôi sẽ giới thiệu một số
-tập dữ liệu được sử dụng trong tác vụ huấn luyện cũng như đánh giá một mô hình OCR.
-\begin{itemize}
-    \item \textbf{ICDAR 2013}: Đây là bộ dữ liệu có chứa 229 hình ảnh được sử dụng cho quá trình
-training mô hình và 233 hình ảnh được dùng cho quá trình đánh giá thời gian và độ
-chính xác. Ngoài ra, những phần văn bản có trong ảnh được đánh nhãn ở cấp độ từ
-và tập dữ liệu này còn được gọi là tập dữ liệu tiêu chuẩn để đánh giá các mô hình
-OCR.
-\item \textbf{ICDAR 2015}: Cũng gần giống như tập dữ liệu ICDAR 2013, tập dữ liệu này bao gồm
-1000 hình ảnh được dùng cho quá trình training và 500 hình ảnh được dùng cho quá
-trình đánh giá. Bộ dữ liệu này được dùng cho rất nhiều cuộc thi về OCR.
-\item \textbf{CTW}: Tập dữ liệu bao gồm 32285 hình ảnh với độ phân giải cao và bao gồm hơn 1
-triệu ký tự, từ,... . Phần văn bản trong ảnh được đánh nhãn ở cấp độ ký tự.
-\end{itemize}
-Mặc dù trên thực tế đã có rất nhiều tập dữ liệu khác nhau với kích thước vô cùng lớn và
-hình ảnh đa dạng, tuy nhiên với một mô hình phục vụ cho bài toán OCR trên đơn thuốc của
-chúng tôi thì những tập dữ liệu trên là chưa đủ. Không giống như những tập dữ liệu kể trên,
-với hình ảnh đơn thuốc, vùng chữ thường có khoảng cách rất gần nhau và phông chữ đôi
-khi không được đồng đều ảnh hưởng đến quá trình OCR và Post-OCR. Vì thế, chúng tôi đã
-thực hiện công việc thu thập và xây dựng một bộ data bám sát vào bài toán và mô hình của
-chúng tôi. Bộ dữ liệu đó có tên là \codeword{Prescription Datasets}. Chúng tôi sẽ giới thiệu chi tiết hơn
-về tập dữ liệu này trong phần sau.
+% Một trong những yếu tố có thể được coi là quan trọng nhất giúp xây dựng một hệ thống
+% OCR đạt hiệu suất tốt chính là tập dữ liệu. Trong phần này, chúng tôi sẽ giới thiệu một số
+% tập dữ liệu được sử dụng trong tác vụ huấn luyện cũng như đánh giá một mô hình OCR.
+% \begin{itemize}
+%     \item \textbf{ICDAR 2013}: Đây là bộ dữ liệu có chứa 229 hình ảnh được sử dụng cho quá trình
+% training mô hình và 233 hình ảnh được dùng cho quá trình đánh giá thời gian và độ
+% chính xác. Ngoài ra, những phần văn bản có trong ảnh được đánh nhãn ở cấp độ từ
+% và tập dữ liệu này còn được gọi là tập dữ liệu tiêu chuẩn để đánh giá các mô hình
+% OCR.
+% \item \textbf{ICDAR 2015}: Cũng gần giống như tập dữ liệu ICDAR 2013, tập dữ liệu này bao gồm
+% 1000 hình ảnh được dùng cho quá trình training và 500 hình ảnh được dùng cho quá
+% trình đánh giá. Bộ dữ liệu này được dùng cho rất nhiều cuộc thi về OCR.
+% \item \textbf{CTW}: Tập dữ liệu bao gồm 32285 hình ảnh với độ phân giải cao và bao gồm hơn 1
+% triệu ký tự, từ,... . Phần văn bản trong ảnh được đánh nhãn ở cấp độ ký tự.
+% \end{itemize}
+% Mặc dù trên thực tế đã có rất nhiều tập dữ liệu khác nhau với kích thước vô cùng lớn và
+% hình ảnh đa dạng, tuy nhiên với một mô hình phục vụ cho bài toán OCR trên đơn thuốc của
+% chúng tôi thì những tập dữ liệu trên là chưa đủ. Không giống như những tập dữ liệu kể trên,
+% với hình ảnh đơn thuốc, vùng chữ thường có khoảng cách rất gần nhau và phông chữ đôi
+% khi không được đồng đều ảnh hưởng đến quá trình OCR và Post-OCR. Vì thế, chúng tôi đã
+% thực hiện công việc thu thập và xây dựng một bộ data bám sát vào bài toán và mô hình của
+% chúng tôi. Bộ dữ liệu đó có tên là \codeword{Prescription Dataset}. Chúng tôi sẽ giới thiệu chi tiết hơn
+% về tập dữ liệu này trong phần sau.

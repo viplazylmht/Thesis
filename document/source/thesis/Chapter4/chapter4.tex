@@ -3,7 +3,7 @@
 
 \section{Tập dữ liệu}
 
-Như đã giới thiệu ở trên, đối với bài toán OCR trên hình ảnh đơn thuốc thì những tập dữ liệu văn bản cảnh là chưa đủ để đánh giá khả năng của mô hình. Do vậy, chúng tôi đã thu thập và đề xuất một tập dữ liệu mới bổ sung, có tên là Prescription Dataset nhằm mục đích đánh giá cho các mô hình nhận dạng ảnh đơn thuốc. Trong đó, dữ liệu bao gồm 1500 hình ảnh với hơn 10000 loại thuốc khác nhau. Mỗi tên thuốc được bao quanh bởi một bounding box và được gán nhãn bằng tên thuốc đúng. Tập dữ liệu này được chúng tôi thu thập từ các nguồn như bệnh viện và các trang web chuyên về phân phối thuốc.
+Như đã giới thiệu ở trên, đối với bài toán OCR trên hình ảnh đơn thuốc thì những tập dữ liệu văn bản cảnh là chưa đủ để đánh giá khả năng của mô hình. Do vậy, chúng tôi đã thu thập và đề xuất một tập dữ liệu mới bổ sung, có tên là Prescription Dataset nhằm mục đích đánh giá cho các mô hình nhận dạng ảnh đơn thuốc. Trong đó, dữ liệu bao gồm 1543 hình ảnh với hơn 10000 loại thuốc khác nhau. Mỗi tên thuốc được bao quanh bởi một bounding box và được gán nhãn bằng tên thuốc đúng. Tập dữ liệu này được chúng tôi thu thập từ các nguồn như bệnh viện và các trang web chuyên về phân phối thuốc.
 
 Mặc dù ngôn ngữ chính của tập dữ liệu này là tiếng Việt, tuy nhiên tên thuốc thường là tên khoa học nên chúng ít chịu ảnh hưởng bởi dấu câu hoặc ngữ pháp tiếng Việt, tất nhiên chúng tôi cũng thống kê và sử dụng những tên thuốc thuần Việt như "Cao bạch hổ", "Tinh dầu",… Tập dữ liệu này chứa hình ảnh đơn thuốc được chụp lại bằng camera của điện thoại, với độ sáng hoặc góc nghiêng là không cố định.
 
@@ -14,7 +14,7 @@ Phần lớn hình ảnh trong tập dữ liệu của chúng tôi đã được
 Facebook có tên là "\textbf{KHO ĐƠN THUỐC}", đây là một group nhỏ được lập ra với mục đích tập
 hợp đơn thuốc từ khắp mọi nơi. Bên cạnh đó, một số lượng không hề nhỏ đơn thuốc được
 chúng tôi đến những bệnh viện lớn và nhỏ trong khu vực để thu thập. Để đảm bảo không xảy ra hiện tượng trùng lặp, chúng tôi đã thực hiện việc kiểm tra một cách thủ công. Tập dữ
-liệu cuối cùng chứa 1008 hình ảnh từ Internet và 492 hình ảnh do các thành viên trong nhóm thu thập từ bệnh viện và chụp lại.
+liệu cuối cùng sau khi tinh chỉnh chứa 1051 hình ảnh từ Internet và 492 hình ảnh do các thành viên trong nhóm thu thập từ bệnh viện và chụp lại.
 \subsection{Gán nhãn dữ liệu}
 Ban đầu, chúng tôi lấy ra một vài hình ảnh để thực hiện quá trình gán nhãn mẫu để ước
 lượng ra một quy trình gán nhãn phù hợp với tập dữ liệu. Một bounding box được vẽ bao
@@ -32,9 +32,8 @@ xác của tập dữ liệu trong quá trình thực nghiệm.
 
 \subsection{Bộ dữ liệu từ điển tên thuốc}
 Ngoài bộ dữ liệu để thực nghiệm, chúng tôi cũng thu thập thêm nguồn dữ liệu dồi dào tên
-thuốc từ Drugbank Việt Nam và thế giới. Với tổng cộng hơn 40.000 nhãn tên thuốc riêng biệt
-cùng với hơn 100.000 tên hoạt chất, gấp hơn 100 lần so với bộ dữ liệu cũ trong nghiên cứu của các nhóm khóa luận trước đó, \codeword{MEP} hứa hẹn sẽ cho ra kết quả tốt hơn và ổn định hơn so với mô hình tiền
-nghiệm.
+thuốc từ Drugbank Việt Nam và thế giới. Với tổng cộng 41.000 nhãn tên thuốc riêng biệt
+cùng với hơn 100.000 tên hoạt chất, gấp hơn 100 lần so với bộ dữ liệu cũ trong nghiên cứu của các nhóm khóa luận trước đó, \codeword{MEP} hứa hẹn sẽ cho ra kết quả tốt hơn và ổn định hơn so với mô hình tiền nhiệm.
 
 \section{Cấu hình tham số}
 
@@ -92,4 +91,4 @@ Chúng tôi thực hiện đánh giá mô hình MEP thông qua kết quả khi c
 
 \end{itemize}
 
-Ngoài 3 độ đo này, khóa luận cũng tiến hành đánh giá mô hình thông qua tiêu chí thời gian. Đối với mỗi bước trong phương pháp đề xuất, chúng tôi sẽ tiến hành đo và đối chiếu với hiệu năng của mô hình đề xuất tại \cite{nguyen2021developing} tương ứng.
+Ngoài 3 độ đo này, khóa luận cũng tiến hành đánh giá mô hình thông qua tiêu chí thời gian. Đối với mỗi bước trong phương pháp đề xuất, chúng tôi sẽ tiến hành đo và đối chiếu với hiệu năng của mô hình cũ được đề xuất tại \cite{nguyen2021developing} tương ứng.

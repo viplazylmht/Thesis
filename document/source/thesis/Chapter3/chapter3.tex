@@ -60,7 +60,10 @@ Nhờ vào quan sát trên, ta có thể phân loại các đơn thuốc ra làm
 
 \begin{itemize}
 
-\item[-] Luật 01. \textbf{^([0-9]+)(?:\textbackslash.|\textbackslash,)* *(?:(.*?) *\textbackslash((.*?)\textbackslash)*|(.*?) *\\\textbackslash((.*)|(.*)|(\textbackslash(.*?\textbackslash)))}. Theo trường hợp này, mỗi tên thuốc sẽ nằm trên một dòng và có số thứ tự đứng trước. Trên dòng đó, ngoài tên thuốc thì cũng đi kèm với hoạt chất nằm chung (vị trí của tên thuốc và hoạt chất có thể hoán đổi cho nhau tùy đơn thuốc, tuy nhiên vẫn đảm bảo thành phần liền sau sẽ nằm trong dấu ngoặc đơn. Với luật này, ta có thể trích xuất được một lượng tối thiểu các tên thuốc ra khỏi đơn thuốc, đồng thời khả năng chúng là tên thuốc cũng cao nhất, vì hầu hết chỉ dòng chứa tên thuốc mới có nhu cầu có số đứng trước. Hình ~\ref{med_extr_rule_1} chỉ ra một mẫu đơn thuốc thuộc luật 1.
+\item[-] Luật 01. \textbf{^([0-9]+)(?:\textbackslash.|\textbackslash,|\textbackslash))* *(?:(.*?) *\textbackslash((.*?)\textbackslash)*|(.*?) *\\\textbackslash((.*)|(.*)|(\textbackslash(.*?\textbackslash)))\$}. Theo trường hợp này, mỗi tên thuốc sẽ nằm trên một dòng và có số thứ tự đứng trước. Trên dòng đó, ngoài tên thuốc thì cũng đi kèm với hoạt chất nằm chung (vị trí của tên thuốc và hoạt chất có thể hoán đổi cho nhau tùy đơn thuốc, tuy nhiên vẫn đảm bảo thành phần liền sau sẽ nằm trong dấu ngoặc đơn. Với luật này, ta có thể trích xuất được một lượng tối thiểu các tên thuốc ra khỏi đơn thuốc, đồng thời khả năng chúng là tên thuốc cũng cao nhất, vì hầu hết chỉ dòng chứa tên thuốc mới có nhu cầu có số đứng trước. Hình ~\ref{med_extr_rule_1} chỉ ra một mẫu đơn thuốc thuộc luật 01.
+
+Bảng ~\ref{proposed:tab_1} nêu ra một vài trường hợp khi sử dụng luật 01 ứng dụng vào bài trích xuất thông tin trên các dòng thuốc. Các thông tin thuốc được trích xuất rất đầy đủ bất kể sự khác nhau giữa định dạng của số thứ tự.Điều này nhằm đảm bảo hạn chế tối đa lỗi sai của bước OCR khi nhận dạng các kí tự đặc biệt vì chúng thường có độ khác biệt khá nhỏ, và đa dạng trong các thuốc. Tuy nhiên, vẫn có trường hợp thông tin không phải là thuốc cũng bị luật này 
+trích xuất, ví dụ như "1) Hẹn tái khám (lần 2)" do có cấu trúc tương tự như dòng chứa tên thuốc. Hình ~\ref{med_extr_rule_1_example} cho ta thấy kết quả của luật 01 khi dùng trong thực tế.
 
 \begin{figure}
 \centering
@@ -68,12 +71,61 @@ Nhờ vào quan sát trên, ta có thể phân loại các đơn thuốc ra làm
 \caption{Mẫu đơn thuốc có dạng như luật 01 đề cập khi dùng Medicine Extractor.}\label{med_extr_rule_1}
 \end{figure}
 
-\item[-] Luật 02. \textbf{^(?:(?!(?:\textbackslash(| ))(.+?) *\textbackslash(+([^)\textbackslash n\textbackslash r]+)\textbackslash)*)}. Luật này cũng tương tự như luật đầu tiên, tuy nhiên bỏ bớt đi điều hiện là phải có số đứng trước. Bằng cách này, ta có thể xử lý được thêm cả những dòng chứa thuốc mà không có số thứ tự. Luật này tuy sẽ làm tăng số dòng nhận được, tuy nhiên vẫn sẽ đảm bảo hiệu suất mô hình, đồng thời là bước dự phòng khi OCR vì vấn đề nào đó mà không thể nhận diện được số thứ tự đứng trước tên thuốc. Hình ~\ref{med_extr_rule_2} đề cập đến một ví dụ cho trường hợp đơn thuốc tuân theo luật 2.
+\begin{table}
+\centering
+\caption{Một vài trường hợp xảy ra khi sử dụng với Luật 01. }\label{proposed:tab_1}
+\begin{tabular}{|l|c|c|}
+\hline
+Input           & Label 1 & Label 2 \\ 
+\hline 1 Evyx (Levocetirizin) & Evyx       & Levocetirizin     \\ 
+\hline 2.. Vitamin PP 500mg & Vitamin PP 500mg       & -  \\
+\hline 3. Deslora (Desloratadine) & Deslora       & Desloratadine \\
+\hline 4,,.   (Carduus marianus) & - & Carduus marianus \\
+\hline 5 Kim tiền thảo (Desmodin) & Kim tiền thảo       & Desmodin \\
+\hline Esomeprazol 20mg &    -    & - \\
+\hline Vitamin C + Vitamin D1 &   -    & - \\
+\hline 1) Hẹn tái khám (lần 2) & Hẹn tái khám       & lần 2 \\
+
+\hline 
+\end{tabular}
+\end{table}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{mep_img/ME_TESTCASE_RULE_01.png}
+\caption{Kết quả khi áp dụng luật 01 trong Medicine Extractor để trích xuất thông tin đơn thuốc.}\label{med_extr_rule_1_example}
+\end{figure}
+
+\item[-] Luật 02. \textbf{^(?:(?!(?:\textbackslash(| ))(.+?) *\textbackslash(+([^)\textbackslash n\textbackslash r]+)\textbackslash)*)\$}. Luật này cũng tương tự như luật đầu tiên, tuy nhiên bỏ bớt đi điều hiện là phải có số đứng trước, đồng thời bắt buộc phải có cụm ngoặc đơn trong dòng thuốc. Bằng cách này, ta có thể xử lý được thêm cả những dòng chứa thuốc mà không có số thứ tự. Luật này tuy sẽ làm tăng số dòng nhận được, tuy nhiên vẫn sẽ đảm bảo hiệu suất mô hình, đồng thời là bước dự phòng khi OCR vì vấn đề nào đó mà không thể nhận diện được số thứ tự đứng trước tên thuốc. Hình ~\ref{med_extr_rule_2} đề cập đến một ví dụ cho trường hợp đơn thuốc tuân theo luật 2.
+
+Chúng tôi cũng thực hiện đánh giá một vài mẫu thử cho luật 02, được mô tả trong Bảng ~\ref{proposed:tab_2} và Hình ~\ref{med_extr_rule_2_example}. Thông thường nhất các dữ liệu trong tập huấn luyện, và cả trong đơn thuốc ngoài thực tế, nếu như không tuân theo luật 01 thì sẽ đều có dạng giống như trường hợp đầu tiên "Amoxicillin (Auclanityl 1g)" trong luật 02. Tuy nhiên, luật 02 không phù hợp để cho nhận dạng ngược lại luật 01, cũng như không bao gồm cáctrường hợp tên thuốc nằm một mình, không được đánh số thứ tự cũng như là kết hợp với dấu ngoặc đơn như trường hợp "Esomeprazol 20mg".
 
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{mep_img/med_extr_rule_2.png}
 \caption{Mẫu đơn thuốc có dạng như luật 02, không có số thứ tự đứng đầu.}\label{med_extr_rule_2}
+\end{figure}
+
+\begin{table}
+\centering
+\caption{Một vài trường hợp xảy ra khi sử dụng với Luật 02. }\label{proposed:tab_2}
+\begin{tabular}{|l|c|c|}
+\hline
+Input           & Label 1 & Label 2 \\ 
+\hline Amoxicillin (Auclanityl 1g) & Amoxicillin & Auclanityl 1g \\ 
+\hline 1 Evyx (Levocetirizin) & 1 Evyx       & Levocetirizin     \\ 
+\hline 4,,.   (Carduus marianus) & 4,,. & Carduus marianus \\
+\hline (Vitamin C) &    -   & - \\
+\hline Esomeprazol 20mg &      -  & - \\
+
+\hline 
+\end{tabular}
+\end{table}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{mep_img/ME_TESTCASE_RULE_02.png}
+\caption{Kết quả khi áp dụng luật 02 trong Medicine Extractor để trích xuất thông tin đơn thuốc.}\label{med_extr_rule_2_example}
 \end{figure}
 
 \item[-] Ngoài ra, có một số ít mẫu đơn thuốc có dạng tên thuốc và hoạt chất nằm trên nhiều dòng. Tuy nhiên trường hợp này ít xảy ra nên khóa luận không tập trung vào để đảm bảo hiệu năng của mô hình. Hình ~\ref{med_extr_rule_3} thể hiện một trường hợp rõ nét nhất cho một đơn thuốc không thuộc phạm vi quản lý của \codeword{MEP}.
@@ -112,7 +164,7 @@ Trong đó, tâm của input a chính là trọng tâm của bounding box A, hay
 \begin{figure}
 \centering
 \includegraphics[width=0.6\textwidth]{mep_img/center_of_mass.png}
-\caption{Trọng tâm của một hình ảnh còn dựa vào khôi lượng tại mỗi điểm ảnh bên trong.}\label{center_of_mass}
+\caption{Trọng tâm của một hình ảnh còn dựa vào khối lượng tại mỗi điểm ảnh bên trong.}\label{center_of_mass}
 \end{figure}
 
 Sau khi có công thức tính toán khoảng cách giữa 2 node, ta sẽ tiếp tục sử dụng Average-Linkage để tính toán khoảng cách giữa 2 cụm với nhau. Average-Linkage sẽ tính toán trung bình khoảng cách từ mỗi bounding box từ cụm này tới các node tương ứng trong cụm bên kia theo công thức trong ~\ref{eq:Average_Linkage}.
@@ -130,7 +182,7 @@ Thuật toán ~\ref{alg:AHC} mô tả chi tiết phiên bản AHC do chúng tôi
     \caption{Agglomerative Hierarchical Clustering} \label{alg:AHC}
     \begin{algorithmic}[1]
         \State \textbf{Input: } Vector trọng tâm của các bounding box $\{ x_n \}_{n=1}^{N}$, ma trận khoảng cách giữa các cluster $DIST(G_1, G_2)$ tương ứng.
-        \State \textbf{Input 2: } $\varepsilon \ gets threshold$ \Comment{Threshold quy định ngưỡng để coi 2 input nằm trên cùng dòng.}
+        \State \textbf{Input 2: } $\varepsilon \gets threshold$ \Comment{Threshold quy định ngưỡng để coi 2 input nằm trên cùng dòng.}
         \State Khởi tạo $A \gets \emptyset$.
         \For{$n \gets 1...N $}
             \State $A \gets A \cup \{\{x_n\}\}$ \Comment{Khởi tạo mỗi nhóm sẽ chứa một bounding box}
@@ -156,7 +208,7 @@ Thuật toán ~\ref{alg:AHC} mô tả chi tiết phiên bản AHC do chúng tôi
     \end{algorithmic}
 \end{algorithm}
 
-Kết quả của bước này sẽ là nhiều cụm, mỗi cụm có chữa nhiều bounding box, từ đây các văn bản trong cùng một cụm, hay nói cách khác là trên cùng một dòng, sẽ được nối với nhau theo thứ tự từ trái sang phải theo trục X. Văn bản này đáp ứng tốt yêu cầu đầu vào của Medicine Extractor như trong hình ~\ref{merged_img}, từ đó cải thiện toàn bộ hệ thống \codeword{MEP} của chúng tôi.
+Kết quả của bước này sẽ là nhiều cụm, mỗi cụm có chữa nhiều bounding box, từ đây các văn bản trong cùng một cụm, hay nói cách khác là trên cùng một dòng, sẽ được nối với nhau theo thứ tự từ trái sang phải theo trục X trong hệ trục tọa độ Euclid 2 chiều. Văn bản này đáp ứng tốt yêu cầu đầu vào của Medicine Extractor như trong hình ~\ref{merged_img}, từ đó cải thiện toàn bộ hệ thống \codeword{MEP} của chúng tôi.
 
 \begin{figure}
 \centering
