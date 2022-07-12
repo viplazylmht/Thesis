@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+
+  backend:
+    container_name: pres_backend
+    image: viplazylmht/prescription:cpu
+
+    ports:
+      - "8088:8088"
+
+    environment:
+      - PORT=8088
+
+    restart: on-failure
