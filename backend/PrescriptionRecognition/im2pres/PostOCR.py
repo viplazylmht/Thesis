@@ -13,7 +13,7 @@ class PostOCR():
         s.FUZZ_THRESHOLD = FUZZ_THRESHOLD*100
         import os, re
         MURI = "mongodb+srv://prescluster.pfayl.mongodb.net/myFirstDatabase?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority"
-        os.system('wget -q https://cdn.discordapp.com/attachments/817270986423664670/907502397595717682/client_cert.pem')
+        os.system('wget -qO- https://cdn.discordapp.com/attachments/817270986423664670/1110962862110810282/X509-cert-6180605518337400253.pem > client_cert.pem')
         s.mclient = pymongo.MongoClient(MURI, tls=True, tlsCertificateKeyFile='client_cert.pem')
         os.system('rm client_cert.pem')
         
